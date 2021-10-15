@@ -14,6 +14,10 @@ int main() {
 }
 ```
 예제파일 양식 규칙을 따라서 예제파일을(기본이름: `tc.txt`) 작성하고 실행하면 된다!
+**컴파일러 c++20이상을 지원해야 한다.**
+
+## visual studio c++20 설정
+프로젝트 > [프로젝트 이름] 속성 > c++언어 표준을 `ISO C++20표준 /stdc:c++20`으로 설정
 
 ## 출력 결과 예시
 ![image](https://user-images.githubusercontent.com/16981721/137499027-7e05fdfa-8e11-4f91-bdd8-0323ca295c96.png)  
