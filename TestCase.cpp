@@ -97,7 +97,7 @@ void runTest(void (*solve)(), string tcFileName) {
 		cout << '\n';
 	}
 	if (wa.size()) {
-		cout << "Wrong test cases" << wa.size() << '\n';
+		cout << "Wrong test cases : " << wa.size() << '\n';
 		for (auto tc : wa) {
 			cout << tc << ' ';
 		}
