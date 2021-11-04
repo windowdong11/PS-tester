@@ -10,13 +10,33 @@ Answer Start
 Answer End
 */
 #include "TestCase.h"
-#include "MyTimer.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
+#include <chrono>
 using namespace std;
+
+class MyTimer
+{
+private:
+	std::chrono::steady_clock::time_point begin;
+	std::chrono::steady_clock::time_point end;
+public:
+	MyTimer() {}
+	~MyTimer() {}
+
+	void start()
+	{
+		begin = std::chrono::steady_clock::now();
+	}
+	long long stop()
+	{
+		end = std::chrono::steady_clock::now();
+		return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+	}
+};
 
 auto originCin = cin.rdbuf();
 auto originCout = cout.rdbuf();
