@@ -136,7 +136,7 @@ void runTests(void (*solve)(), const vector<string> &fileNames)
 		cout << fileName << '\n';
 }
 
-void solve()
+void solveExample()
 {
 	for (int i = 0; i < 2; ++i)
 	{
@@ -151,5 +151,5 @@ void solve()
 
 void testExample()
 {
-	runTests(solve, {"test/example/tc1.txt", "test/example/tc2.txt"});
+	runTests(solveExample, {"test/example/tc1.txt", "test/example/tc2.txt"});
 }
