@@ -3,31 +3,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ gnu++20(boj-test) run",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [
-                "-std",
-                "gnu++20",
-            ],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "gdb에 자동 서식 지정 사용",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "C/C++: g++ 활성 파일 빌드",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "postDebugTask": "실행파일 삭제(Remove executefile)",
-        },
-        {
             "name": "g++ gnu++17(boj)",
             "type": "cppdbg",
             "request": "launch",
@@ -50,6 +25,7 @@
             ],
             "preLaunchTask": "C/C++: g++ 활성 파일 빌드",
             "miDebuggerPath": "/usr/bin/gdb",
+            "postDebugTask": "실행파일 삭제(Remove executefile)"
         }
     ]
 }
