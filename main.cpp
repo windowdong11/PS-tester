@@ -11,7 +11,7 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   #ifndef ONLINE_JUDGE
-  testExample(); // runTests(solve, {"tcfile1.txt", "tcfile2.txt"})
+  runTests(solve, {}); // runTests(solve, {"tcfile1.txt", "tcfile2.txt"})
   #else
   solve();
   #endif
