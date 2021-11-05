@@ -70,6 +70,7 @@ enum class TestResult
 
 TestResult runTest(void (*solve)(), const string &fileName)
 {
+	cout << fileName << " : ";
 	// Read test case, answer
 	ifstream in(fileName);
 	if(in.fail())
@@ -100,7 +101,6 @@ TestResult runTest(void (*solve)(), const string &fileName)
 	string solveResult = solveCout.str();
 	trim_end(solveResult);
 	// Compare result
-	cout << (answer == solveResult ? "AC\n" : "WA\n");
 	if (solveResult == answer)
 	{
 		cout << "AC, " << solveTime << "[ms]\n";
@@ -119,18 +119,14 @@ TestResult runTest(void (*solve)(), const string &fileName)
 
 void runTests(void (*solve)(), const vector<string> &fileNames)
 {
-	vector<string> passed, failed;
+	vector<string>failed;
 	for (auto &fileName : fileNames)
 	{
 		TestResult result = runTest(solve, fileName);
-		if (result == TestResult::AC)
-			passed.push_back(fileName);
-		else
+		if (result != TestResult::AC)
 			failed.push_back(fileName);
 	}
-	cout << "Passed : " << passed.size() << '\n';
-	for (auto &fileName : passed)
-		cout << fileName << '\n';
+	cout << "Passed : " << (fileNames.size() - failed.size()) << '\n';
 	cout << "Failed : " << failed.size() << '\n';
 	for (auto &fileName : failed)
 		cout << fileName << '\n';
