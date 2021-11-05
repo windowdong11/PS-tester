@@ -20,6 +20,7 @@ int main() {
   return 0;
 }
 ```
+[사용 예시 브랜치 example-boj-14888](https://github.com/windowdong11/PS-tester/tree/example-boj-14888)
 ## 예제파일 양식 규칙
 ```
 <Test case>
