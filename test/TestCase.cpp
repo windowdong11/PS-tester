@@ -149,7 +149,7 @@ string int_to_string(int num)
 
 // generate testcase file name
 // (when only tcCnt given) default output => "tc1.txt"
-vector<string> generate_TCNames(const int tcCnt, const string start = "tc", const string end = "", const string ext = ".txt")
+vector<string> generate_TCNames(const int tcCnt, const string start, const string end, const string ext)
 {
 	vector<string> f;
 	for (int i = 1; i <= tcCnt; ++i)
