@@ -68,12 +68,12 @@ enum class TestResult
 	TC_ERROR
 };
 
-TestResult runTest(void (*solve)(), const string &fileName)
+TestResult runTest(void (*solve)(), void (*initGlobal)(), const string &fileName)
 {
 	cout << fileName << " : ";
 	// Read test case, answer
 	ifstream in(fileName);
-	if(in.fail())
+	if (in.fail())
 	{
 		cerr << "Failed to open file: " << fileName << endl;
 		return TestResult::TC_ERROR;
@@ -87,6 +87,8 @@ TestResult runTest(void (*solve)(), const string &fileName)
 	string answer = readAnswer(in).str();
 	trim_end(answer);
 	in.close();
+	// init global variables
+	initGlobal();
 	// Run solve
 	stringstream solveCout;
 	auto originCin = cin.rdbuf(), originCout = cout.rdbuf();
@@ -117,12 +119,12 @@ TestResult runTest(void (*solve)(), const string &fileName)
 	}
 }
 
-void runTests(void (*solve)(), const vector<string> &fileNames)
+void runTests(void (*solve)(), void (*initGlobal)(), const vector<string> &fileNames)
 {
-	vector<string>failed;
+	vector<string> failed;
 	for (auto &fileName : fileNames)
 	{
-		TestResult result = runTest(solve, fileName);
+		TestResult result = runTest(solve, initGlobal, fileName);
 		if (result != TestResult::AC)
 			failed.push_back(fileName);
 	}
@@ -130,6 +132,29 @@ void runTests(void (*solve)(), const vector<string> &fileNames)
 	cout << "Failed : " << failed.size() << '\n';
 	for (auto &fileName : failed)
 		cout << fileName << '\n';
+}
+
+string int_to_string(int num)
+{
+	char c[] = "0123456789";
+	string s;
+	while (num)
+	{
+		s += c[num % 10];
+		num /= 10;
+	}
+	reverse(s.begin(), s.end());
+	return s;
+}
+
+// generate testcase file name
+// (when only tcCnt given) default output => "tc1.txt"
+vector<string> generate_TCNames(const int tcCnt, const string start = "tc", const string end = "", const string ext = ".txt")
+{
+	vector<string> f;
+	for (int i = 1; i <= tcCnt; ++i)
+		f.push_back(start + int_to_string(i) + end + ext);
+	return f;
 }
 
 void solveExample()
@@ -147,5 +172,5 @@ void solveExample()
 
 void testExample()
 {
-	runTests(solveExample, {"test/example/tc1.txt", "test/example/tc2.txt"});
+	runTests(solveExample, []() {}, {"test/example/tc1.txt", "test/example/tc2.txt"});
 }
