@@ -52,6 +52,7 @@ stringstream readAnswer(ifstream &in)
 	while (!in.eof())
 	{
 		getline(in, line);
+		trim_end(line);
 		answer << line + '\n';
 	}
 	return answer;
