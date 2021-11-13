@@ -22,6 +22,16 @@ public:
 	}
 } timer;
 
+void trim_end(string &str)
+{
+	str.erase(
+			find_if(str.rbegin(), str.rend(),
+							[](unsigned char c)
+							{ return !isspace(c); })
+					.base(),
+			str.end());
+}
+
 stringstream readTestCase(ifstream &in)
 {
 	stringstream testcase;
@@ -29,6 +39,7 @@ stringstream readTestCase(ifstream &in)
 	while (!(line == "answer" || in.eof()))
 	{
 		getline(in, line);
+		trim_end(line);
 		testcase << line + '\n';
 	}
 	return testcase;
@@ -44,16 +55,6 @@ stringstream readAnswer(ifstream &in)
 		answer << line + '\n';
 	}
 	return answer;
-}
-
-void trim_end(string &str)
-{
-	str.erase(
-			find_if(str.rbegin(), str.rend(),
-							[](unsigned char c)
-							{ return !isspace(c); })
-					.base(),
-			str.end());
 }
 
 enum class TestResult
@@ -82,6 +83,7 @@ TestResult runTest(void (*solve)(), void (*initGlobal)(), const string &fileName
 	if (in.eof())
 	{
 		cout << "[PS_Tester Error] Seperator 'answer' does not exist in file : " + fileName + '\n';
+		cout << "Testcase : \n" << testCase.str() << '\n';
 		return TestResult::TC_ERROR;
 	}
 	string answer = readAnswer(in).str();
