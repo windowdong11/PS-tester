@@ -3,16 +3,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ gnu++17(boj)",
+            "name": "g++ gnu++17(boj) [run current file]",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
             "args": [
                 "-std",
                 "gnu++17",
             ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -24,6 +24,31 @@
                 }
             ],
             "preLaunchTask": "C/C++: g++ 활성 파일 빌드",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "postDebugTask": "실행파일 삭제(Remove executefile)"
+        },
+        {
+            "name": "g++ gnu++17(boj) [run main.cpp]",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main",
+            "args": [
+                "-std",
+                "gnu++17",
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb에 자동 서식 지정 사용",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++ main.cpp 파일 빌드",
             "miDebuggerPath": "/usr/bin/gdb",
             "postDebugTask": "실행파일 삭제(Remove executefile)"
         }

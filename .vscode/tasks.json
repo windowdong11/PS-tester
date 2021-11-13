@@ -7,13 +7,37 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",// 현재 열고있는 파일
-                "${fileDirname}/test/TestCase.cpp",
+                "${workspaceFolder}/${file}",// 현재 열고있는 파일`
+                "${workspaceFolder}/test/TestCase.cpp",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "디버거에서 생성된 작업입니다."
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++ main.cpp 파일 빌드",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/test/TestCase.cpp",
+                "-o",
+                "${workspaceFolder}/main"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -29,7 +53,7 @@
             "label": "실행파일 삭제(Remove executefile)",
             "command": "rm",
             "args": [
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/${fileBasenameNoExtension}"
             ],
         },
     ],
