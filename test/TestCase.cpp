@@ -79,7 +79,7 @@ TestResult runTest(void (*solve)(), void (*initGlobal)(), const string &fileName
 		return TestResult::TC_ERROR;
 	}
 	stringstream testCase = readTestCase(in);
-	if (cin.eof())
+	if (in.eof())
 	{
 		cout << "[PS_Tester Error] Seperator 'answer' does not exist in file : " + fileName + '\n';
 		return TestResult::TC_ERROR;
