@@ -58,6 +58,19 @@ stringstream readAnswer(ifstream &in)
 	return answer;
 }
 
+// trim each line and add '\n'
+string trim_each_line_add_linebreak(stringstream& s){
+	string result;
+	while(!s.eof()){
+		string line;
+		getline(s, line);
+		trim_end(line);
+		result += line + '\n';
+	}
+	trim_end(result);
+	return result;
+}
+
 enum class TestResult
 {
 	AC,
@@ -103,8 +116,7 @@ TestResult runTest(void (*solve)(), void (*initGlobal)(), const string &fileName
 	cin.rdbuf(originCin);
 	cout.rdbuf(originCout);
 	// Get result
-	string solveResult = solveCout.str();
-	trim_end(solveResult);
+	string solveResult = trim_each_line_add_linebreak(solveCout);
 	// Compare result
 	if (solveResult == answer)
 	{
