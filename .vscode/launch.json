@@ -8,8 +8,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/${fileBasenameNoExtension}",
             "args": [
-                "-std",
-                "gnu++17",
+                "-std=gnu++17",
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -23,9 +22,9 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++ 활성 파일 빌드",
+            "preLaunchTask": "C/C++: g++ 활성 파일 빌드 [current]",
             "miDebuggerPath": "/usr/bin/gdb",
-            "postDebugTask": "실행파일 삭제(Remove executefile)"
+            "postDebugTask": "실행파일 삭제(Remove executefile) [current]"
         },
         {
             "name": "g++ gnu++17(boj) [run main.cpp]",
@@ -33,8 +32,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/main",
             "args": [
-                "-std",
-                "gnu++17",
+                "-std=gnu++17",
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -48,9 +46,9 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++ main.cpp 파일 빌드",
+            "preLaunchTask": "C/C++: g++ main.cpp 파일 빌드 [main]",
             "miDebuggerPath": "/usr/bin/gdb",
-            "postDebugTask": "실행파일 삭제(Remove executefile)"
+            "postDebugTask": "실행파일 삭제(Remove executefile) [main]",
         }
     ]
 }

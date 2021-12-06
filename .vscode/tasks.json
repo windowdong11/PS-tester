@@ -2,12 +2,13 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ 활성 파일 빌드",
+            "label": "C/C++: g++ 활성 파일 빌드 [current]",
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=gnu++17",
                 "-g",
-                "${workspaceFolder}/${file}",// 현재 열고있는 파일`
+                "${file}",// 현재 열고있는 파일`
                 "${workspaceFolder}/test/TestCase.cpp",
                 "-o",
                 "${workspaceFolder}/${fileBasenameNoExtension}"
@@ -26,10 +27,11 @@
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ main.cpp 파일 빌드",
+            "label": "C/C++: g++ main.cpp 파일 빌드 [main]",
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=gnu++17",
                 "-g",
                 "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/test/TestCase.cpp",
@@ -50,12 +52,20 @@
         },
         {
             "type": "shell",
-            "label": "실행파일 삭제(Remove executefile)",
+            "label": "실행파일 삭제(Remove executefile) [current]",
             "command": "rm",
             "args": [
                 "${workspaceFolder}/${fileBasenameNoExtension}"
             ],
         },
+        {
+            "type": "shell",
+            "label": "실행파일 삭제(Remove executefile) [main]",
+            "command": "rm",
+            "args": [
+                "${workspaceFolder}/main"
+            ],
+        }
     ],
     "version": "2.0.0"
 }

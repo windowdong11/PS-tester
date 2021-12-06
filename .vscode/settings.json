@@ -98,6 +98,5 @@
         "typeindex": "cpp",
         "valarray": "cpp",
         "variant": "cpp"
-    },
-    "C_Cpp.default.cppStandard": "gnu++17"
+    }
 }
