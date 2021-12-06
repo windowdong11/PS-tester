@@ -164,10 +164,10 @@ string int_to_string(int num)
 
 // generate testcase file name
 // (when only tcCnt given) default output => "tc1.txt"
-vector<string> generate_TCNames(const int tcCnt, const string start, const string end, const string ext)
+vector<string> generate_TCNames(const int tcCntStart, const int tcCntEnd, const string start, const string end, const string ext)
 {
 	vector<string> f;
-	for (int i = 1; i <= tcCnt; ++i)
+	for (int i = tcCntStart; i <= tcCntEnd; ++i)
 		f.push_back(start + int_to_string(i) + end + ext);
 	return f;
 }
@@ -188,4 +188,35 @@ void solveExample()
 void testExample()
 {
 	runTests(solveExample, []() {}, {"test/example/tc1.txt", "test/example/tc2.txt"});
+}
+
+// ! ---------- Generator ---------- !
+
+void gen_tc_file(void (*tc_generator)(), void (*solve)(), const string filename){
+	cout << "TC_GEN : " << filename << '\n';
+	// open
+	ofstream out(filename);
+	if(!out.is_open()){
+		cout << "(err1) Error opening file : " << filename << '\n';
+		return;
+	}
+	// generate tc
+	stringstream tc_ans;
+	auto originCout = cout.rdbuf();
+	cout.rdbuf(tc_ans.rdbuf());
+  tc_generator();
+	// solve tc
+	stringstream tc_cp(tc_ans.str());
+	tc_ans << "\nanswer\n";
+	auto originCin = cin.rdbuf();
+	cin.rdbuf(tc_cp.rdbuf());
+	solve();
+	cin.rdbuf(originCin);
+	cout.rdbuf(originCout);
+	out << tc_ans.str();
+}
+
+void gen_tc_files(void (*tc_generator)(), void (*solve)(), vector<string> tc_filenames){
+	for(auto filename: tc_filenames)
+		gen_tc_file(tc_generator, solve, filename);
 }
