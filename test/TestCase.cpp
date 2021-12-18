@@ -1,4 +1,5 @@
 #include "TestCase.h"
+#include <filesystem>
 using namespace std;
 
 class MyTimer
@@ -192,31 +193,42 @@ void testExample()
 
 // ! ---------- Generator ---------- !
 
-void gen_tc_file(void (*tc_generator)(), void (*solve)(), const string filename){
-	cout << "TC_GEN : " << filename << '\n';
+void gen_tc_file(void (*tc_generator)(), void (*solve)(), const string filename, bool (*regen)(stringstream)){
 	// open
-	ofstream out(filename);
-	if(!out.is_open()){
-		cout << "(err1) Error opening file : " << filename << '\n';
-		return;
-	}
-	// generate tc
-	stringstream tc_ans;
-	auto originCout = cout.rdbuf();
-	cout.rdbuf(tc_ans.rdbuf());
-  tc_generator();
-	// solve tc
-	stringstream tc_cp(tc_ans.str());
-	tc_ans << "\nanswer\n";
-	auto originCin = cin.rdbuf();
-	cin.rdbuf(tc_cp.rdbuf());
-	solve();
-	cin.rdbuf(originCin);
-	cout.rdbuf(originCout);
-	out << tc_ans.str();
+	stringstream content;
+	filesystem::path p = filesystem::current_path() / filename;
+	unsigned long long gencnt = 0;
+	cout << "Generating TC file : " << filename << '\n';
+	do
+	{
+		content = {};
+		if(gencnt++) {
+			cout << "Regen[trying " << gencnt << "times] : " << filename << '\n';
+		}
+		ofstream out(p);
+		if(!out.is_open()){
+			cout << "(err1) Error opening file : " << filename << '\n';
+			return;
+		}
+		// generate tc
+		auto originCout = cout.rdbuf();
+		cout.rdbuf(content.rdbuf());
+		tc_generator();
+		// solve tc
+		content << "\nanswer\n";
+		auto originCin = cin.rdbuf();
+		cin.rdbuf(content.rdbuf());
+		solve();
+		cin.rdbuf(originCin);
+		cout.rdbuf(originCout);
+		// regenerate
+		// write answer to file
+		out << content.str();
+		out.close();
+	} while (regen(stringstream(content.str())));
 }
 
-void gen_tc_files(void (*tc_generator)(), void (*solve)(), vector<string> tc_filenames){
+void gen_tc_files(void (*tc_generator)(), void (*solve)(), vector<string> tc_filenames, bool (*regen)(stringstream)){
 	for(auto filename: tc_filenames)
-		gen_tc_file(tc_generator, solve, filename);
+		gen_tc_file(tc_generator, solve, filename, regen);
 }
