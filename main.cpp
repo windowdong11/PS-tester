@@ -3,18 +3,20 @@ PS_Tester : https://github.com/windowdong11/PS-tester
 (TestCase)
 */
 #include <bits/stdc++.h>
+
+// #define ONLINE_JUDGE
+#define TC_GEN
+// #define RUN_TEST
+
 #ifndef ONLINE_JUDGE
   #include "test/TestCase.h"
-  #define TC_GEN
-  #ifndef TC_GEN
-    //#define ONLINE_JUDGE
-  #endif
 #endif
 using namespace std;
 
 // ! ---------- 여기부터는 tc만들기 위한 
 // TODO : 템플릿화 하기, 파일분리
 #ifdef TC_GEN
+namespace TC {
 template<
   typename T,
   typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type
@@ -73,6 +75,7 @@ void gen_tc(){
   while(n--)
     cout << i_rand(0, 1000) << ' ';
 }
+}
 #endif
 
 // ! ---------- 여기부터는 문제풀이용 solve 코드
@@ -99,16 +102,16 @@ int main()
   ios::sync_with_stdio(0);
   cin.tie(0);
   #ifdef TC_GEN
-  const int minidx = 1;
-  const int tcCnt = 5;
-  gen_tc_files(gen_tc, solve_AC, generate_TCNames(minidx, minidx + tcCnt - 1), regen);
-  runTests(solve, initGlobal, generate_TCNames(minidx, minidx + tcCnt - 1));
-  #else
-  #ifdef ONLINE_JUDGE
-  solve();
-  #else
-  runTests(solve, initGlobal, generate_TCNames(1, 1));
+    const int minidx = 1;
+    const int tcCnt = 5;
+    gen_tc_files(TC::gen_tc, TC::solve_AC, generate_TCNames(minidx, minidx + tcCnt - 1), TC::regen);
+    runTests(solve, initGlobal, generate_TCNames(minidx, minidx + tcCnt - 1));
   #endif
+  #ifdef ONLINE_JUDGE
+    solve();
+  #endif
+  #ifdef RUN_TEST
+    runTests(solve, initGlobal, generate_TCNames(1, 1));
   #endif
   return 0;
 }
