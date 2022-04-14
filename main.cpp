@@ -3,79 +3,54 @@ PS_Tester : https://github.com/windowdong11/PS-tester
 (TestCase)
 */
 #include <bits/stdc++.h>
-
-// #define ONLINE_JUDGE
-#define TC_GEN
-// #define RUN_TEST
-
 #ifndef ONLINE_JUDGE
   #include "test/TestCase.h"
+  #define TC_GEN
+  #ifndef TC_GEN
+    #define ONLINE_JUDGE
+  #endif
 #endif
 using namespace std;
 
 // ! ---------- 여기부터는 tc만들기 위한 
 // TODO : 템플릿화 하기, 파일분리
 #ifdef TC_GEN
-namespace TC {
-template<
-  typename T,
-  typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type
-  >
 class intRandom {
   random_device rd;
   mt19937 rdengine;
-  map<pair<T,T>, uniform_int_distribution<T>> dis;
+  map<pair<int,int>, uniform_int_distribution<int>> dis;
 	public:
 	intRandom(): rdengine(rd()){}
-	T operator() (const T minval, const T maxval){
+	int operator() (const int minval, const int maxval){
     if(dis.find({minval, maxval}) == dis.end()){
       // add new uniform_int_distribution
-      dis[{minval, maxval}] = uniform_int_distribution<T>(minval, maxval);
+      dis[{minval, maxval}] = uniform_int_distribution<int>(minval, maxval);
     }
     return dis[{minval, maxval}](rdengine);
 	}
-};
+}i_rand;
 
-intRandom<int> i_rand;
-intRandom<long long> ll_rand;
-
-void InitGlobal_AC(){
-  // Initialize global variables for solve_AC().
-}
-
-void solve_AC() {
-  InitGlobal_AC();
-  // Write AC code here.
-  //* Example : calculate sum of n numbers
-  int n;
-  cin >> n;
-  int ans = 0;
-  while(n--) {
-    int t;
-    cin >> t;
-    ans += t;
+namespace GEN_TC {
+  //global variables here
+  int a, b;
+  void InitGlobal_AC(){
+    // Initialize global variables for solve_AC().
   }
-  cout << ans;
-}
 
-bool regen(stringstream ans){
-  // regenerate testcase when regen() returns true
-  //* Example : regenerate testcase when the answer is 0
-  int s;
-  ans >> s;
-  if(s == 0) return true;
-  return false;
+  void solve_AC() {
+    InitGlobal_AC();
+    // Write AC code here.
+    cin >> a >> b;
+    cout << a + b;
+  }
 }
 
 void gen_tc(){
   // testcase generator
-  //* Example: generate n numbers
-  int n = i_rand(1, 1000);
-  cout << n << '\n';
-  while(n--)
-    cout << i_rand(0, 1000) << ' ';
+  cout << i_rand(0, 100) << i_rand(0, 100);
 }
-}
+
+
 #endif
 
 // ! ---------- 여기부터는 문제풀이용 solve 코드
@@ -84,17 +59,12 @@ void initGlobal(){
   //Initialize global varibles for solve().
 }
 
-
 void solve(){
-  //Write solving code
-  //* Example : Solving code.
-  int n;
-  int numbers[1000];
-  cin >> n;
-  for(int i = 0; i < n; ++i) cin >> numbers[i];
-  int sum = 0;
-  for(int i = 0; i < n; ++i) sum += numbers[i];
-  cout << sum;
+  //Write solving code.
+  int a, b;
+  cin >> a >> b;
+  int s = a + b;
+  cout << s;
 }
 
 int main()
@@ -102,16 +72,14 @@ int main()
   ios::sync_with_stdio(0);
   cin.tie(0);
   #ifdef TC_GEN
-    const int minidx = 1;
-    const int tcCnt = 5;
-    gen_tc_files(TC::gen_tc, TC::solve_AC, generate_TCNames(minidx, minidx + tcCnt - 1), TC::regen);
-    runTests(solve, initGlobal, generate_TCNames(minidx, minidx + tcCnt - 1));
-  #endif
+  gen_tc_files(gen_tc, GEN_TC::solve_AC, generate_TCNames(1, 20));
+  runTests(solve, initGlobal, generate_TCNames(1, 20));
+  #else
   #ifdef ONLINE_JUDGE
-    solve();
+  solve();
+  #else
+  runTests(solve, initGlobal, generate_TCNames(1, 20));
   #endif
-  #ifdef RUN_TEST
-    runTests(solve, initGlobal, generate_TCNames(1, 1));
   #endif
   return 0;
 }
